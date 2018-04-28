@@ -11,6 +11,9 @@ public class Time {
         this.second = second;
         this.minute = minute;
         this.hour = hour;
+
+        if (!checkTime())
+            throw new RuntimeException("Fuck you");
     }
 
     public int getHour() {
@@ -25,36 +28,50 @@ public class Time {
         return second;
     }
 
-    public void setHour() throws IOException {
-        this.hour = System.in.read();
+    public void setHour(int hour) {
+        this.hour = hour;
     }
 
-    public void setMinute() throws IOException {
-        this.minute = System.in.read();
+    public void setMinute(int minute) {
+        this.minute = minute;
     }
 
-    public void setSecond() throws IOException {
-        this.second = System.in.read();
+    public void setSecond(int second) {
+        this.second = second;
     }
 
-    public void CheckTime(Time time) throws IOException {
-        while (time.getHour() > 24 || time.getHour() < 0) {
+    public void addHour(int hour) {
+        this.hour += hour;
+        this.hour %= 24;
+    }
+    public void addMinute(int minute) {
+        this.minute += minute;
+        this.minute %= 60;
+    }
+    public void addSecond(int second) {
+        this.second += second;
+        this.second %= 60;
+    }
+
+    private boolean checkTime() {
+        if (this.getHour() > 24 || this.getHour() < -1) {
             System.out.println("Wrong hour");
-            time.setHour();
+            return false;
         }
-        while (time.getMinute() > 60 || time.getMinute() < 0) {
+        if (this.getMinute() > 60 || this.getMinute() < 0) {
             System.out.println("Wrong minute");
-            time.setMinute();
+            return false;
         }
-        while (time.getSecond() > 60 || time.getSecond() < 0) {
+        if (this.getSecond() > 60 || this.getSecond() < 0) {
             System.out.println("Wrong second");
-            time.setSecond();
+            return false;
         }
+
+        return true;
     }
-    public void ChangeTime(Time time) throws IOException {
-        time.setHour();
-        time.setMinute();
-        time.setSecond();
-        time.CheckTime(time);
+
+    @Override
+    public String toString() {
+        return (getHour() + ":" + getMinute() + ":" + getSecond());
     }
 }

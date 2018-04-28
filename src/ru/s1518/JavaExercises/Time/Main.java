@@ -4,8 +4,8 @@ import java.io.IOException;
 
 public class Main {
     public static void main(String[] args) throws IOException {
-        Time time = new Time(12, 48, 34);
-            time.CheckTime(time);
-            time.ChangeTime(time);
+        Time time = new Time(23, 48, 34);
+        time.addHour(5);
+        System.out.println(time);
     }
 }
